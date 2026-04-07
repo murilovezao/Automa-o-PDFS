@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Renomeador de PDFs</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Renomeador Inteligente de PDFs</h1>
+    <div class="small">Versão simples para testar em casa. Faz upload dos PDFs, procura os campos que você definir e baixa um ZIP com os arquivos renomeados.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2> 1 - Campos a procurar</h2>
+      <div id="fieldsContainer"></div>
+
+      <div class="row">
+        <div>
+          <label>Texto do campo no PDF</label>
+          <input id="newLabel" type="text" placeholder="Ex.: Nome">
+        </div>
+        <div>
+          <label>Marcador no nome do arquivo</label>
+          <input id="newToken" type="text" placeholder="Ex.: Nome">
+        </div>
+        <button id="addFieldBtn" class="success" type="button">Adicionar</button>
+      </div>
+
+      <h2>2 - Modelo do nome final</h2>
+      <textarea id="pattern">{Matrícula} - {Nome}</textarea>
+      <div id="chips" class="chips"></div>
+
+      <div class="row" style="margin-top:12px">
+        <div>
+          <label>Formato do texto</label>
+          <select id="caseMode">
+            <option value="upper" selected>CAIXA ALTA</option>
+            <option value="original">Original</option>
+            <option value="lower">caixa baixa</option>
+          </select>
+        </div>
+        <div>
+          <label>Páginas para leitura</label>
+          <select id="pagesMode">
+            <option value="1" selected>Primeira página</option>
+            <option value="all">Documento inteiro</option>
+          </select>
+        </div>
+        <button id="exampleBtn" class="ghost" type="button">Carregar exemplo</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3 - Upload</h2>
+      <div id="drop" class="drop">
+        <strong>Arraste os PDFs aqui</strong> ou clique para selecionar
+        <div class="small" style="margin-top:8px">Precisa estar com internet para carregar as bibliotecas.</div>
+        <input id="files" type="file" accept=".pdf" multiple style="display:none">
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <button id="processBtn" class="primary" type="button">Processar PDFs</button>
+        <button id="clearBtn" class="ghost" type="button">Limpar</button>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <h2 style="margin-top:18px">Arquivos</h2>
+      <div id="filesInfo" class="small">Nenhum arquivo selecionado.</div>
+
+      <h2 style="margin-top:18px">Resultados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Original</th>
+            <th>Valores</th>
+            <th>Novo nome</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="results">
+          <tr><td colspan="4" class="small">Ainda não há resultados.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
